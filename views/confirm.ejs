@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+</head>
+<body>
+    <div class="container">
+        <% if(shipping !== null){ %>
+            <div class="shipment-information">
+                <p>Description: <%= shipping.description %></p>
+                <p>Price: <%= shipping.price %></p>
+                <p>Estimated Shipping Time: <%= shipping.estimate_days %></p>
+            </div>
+            <div class="confirm-shipment">
+                <form action="/send-shipment" method="POST">
+                    <input type="hidden" value="<%= shipping.id %>" name="shippingId">
+                    <input type="hidden" value="<%= shipping.description %>" name="shippingDescription">
+                    <input type="hidden" value="<%= address %>" name="address">
+                    <button type="submit">Confirm</button>
+                </form>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

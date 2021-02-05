@@ -7,16 +7,17 @@
 </head>
 <body>
     <div class="container">
-        <hr>
-        <h1>Enter Your Address</h1>
-        <hr>
-    
-        <form action="http://localhost:3000/address" method="POST">
-            <label for="address">Address</label>
-            <input class="form-control" name="address" required>
-    
-            <button type="submit">Search</button>
-        </form>
+        <div class="enter-address">
+            <hr>
+            <h1>Enter Your Address</h1>
+            <hr>
+        
+            <form action="/shipment" method="POST">
+                <label for="address">Address</label>
+                <input class="form-control" name="address" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

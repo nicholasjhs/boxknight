@@ -15,13 +15,39 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {shipping: null});
 })
 
-app.post('/address', (req, res) => {
+app.get('/shipment', (req, res) => {
+  res.render('confirm', {shipping: null});
+})
+
+app.post('/shipment', async (req, res) => {
   let address = req.body.address;
-  api.getRates(address);
-  res.render('index');
+  try {
+    let shippingInfo = await api.getBestRate(address)
+    res.render('confirm', {shipping: shippingInfo, address: address});
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+})
+
+app.post('/send-shipment', async (req, res) => {
+  let id = req.body.shippingId;
+  let description = req.body.shippingDescription
+  let shipping = {
+    id: id,
+    description: description
+  };
+  let address = req.body.address;
+  try {
+    await api.sendShipment(shipping, address);
+    res.render('confirm', {shipping: null});
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
 })
 
 app.listen(port, () => {
