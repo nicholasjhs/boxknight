@@ -24,6 +24,7 @@ module.exports.sendShipment = async function sendShipment(shippingOption, destin
         });
         return res.data;
     } catch (err) {
+        console.log('sendShipment');
         console.log(err);
     }
 }
@@ -39,11 +40,15 @@ module.exports.getBestRate = async function getBestRate(destination) {
 
         return bestRate;
     } catch (error) {
+        console.log('getBestRate');
         console.log(error);
     }
 }
 
 function findBestRate(rates) {
+    if (!rates.length > 0) {
+        return null;
+    }
     let bestRate = rates.reduce(
         function(lowest, current) {
             if(current.price <= lowest.price) {

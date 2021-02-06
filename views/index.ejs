@@ -11,32 +11,50 @@
             <hr>
             <h1>Enter Your Address</h1>
             <hr>
-        
+            <% if (hasError) { %>
+                <% errorMessages.forEach( error => { %>
+                    <div class="error-message">
+                        <p><%= error.msg %> for <%= error.param %> field</p>
+                    </div>
+                <% }) %>
+            <% } %>
             <form action="/shipment" method="POST">
                 <label for="address">Address</label>
-                <input class="form-control" name="address" required>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="address"
+                    value="<% if (hasError) { %><%= destination.address_line_one %><% } %>" 
+                    required>
                 <label for="city">City</label>
-                <input class="form-control" name="city" required>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="city"
+                    value="<% if (hasError) { %><%= destination.city %><% } %>" 
+                    required>
                 <label for="province">Province</label>
-                <select class="form-control" name="province" id="province" required>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="YT">Yukon</option>
-                </select>
+                <input 
+                    class="form-control" 
+                    type="text"
+                    name="province"
+                    value="<% if (hasError) { %><%= destination.province %><% } %>"
+                    required>
+                </input>
                 <label for="postalcode">Postal Code</label>
-                <input class="form-control" name="postalcode" required>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="postalcode"
+                    value="<% if (hasError) { %><%= destination.postalCode %><% } %>" 
+                    required>
                 <label for="Country">Country</label>
-                <input class="form-control" value="Canada" name="country" required>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="country"
+                    value="<% if (hasError) { %><%= destination.country %><% } %>" 
+                    required>
                 <button type="submit">Search</button>
             </form>
         </div>
