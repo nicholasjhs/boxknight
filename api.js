@@ -14,13 +14,13 @@ const carriers = [
     }
 ];
 
-module.exports.sendShipment = async function sendShipment(shippingOption, address) {
+module.exports.sendShipment = async function sendShipment(shippingOption, destination) {
     let rateId = shippingOption.id;
     let carrierUrl = getCarrierUrl(carriers, shippingOption.description);
     try {
         const res = await axios.post(carrierUrl + shipmentUrl, {
             rate_id: rateId,
-            destination: address
+            destination: destination
         });
         return res.data;
     } catch (err) {
@@ -29,7 +29,7 @@ module.exports.sendShipment = async function sendShipment(shippingOption, addres
 }
 
 module.exports.getBestRate = async function getBestRate(destination) {
-    let promises = carriers.map(carrier => axios.get(carrier.url + ratesUrl + destination));
+    let promises = carriers.map(carrier => axios.get(carrier.url + ratesUrl + destination.postalCode));
     try {
         let results = await Promise.allSettled(promises);
         let fulfilledResults = results.filter(result => result.status === 'fulfilled');

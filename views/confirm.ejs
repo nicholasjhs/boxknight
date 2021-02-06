@@ -17,7 +17,7 @@
                 <form action="/send-shipment" method="POST">
                     <input type="hidden" value="<%= shipping.id %>" name="shippingId">
                     <input type="hidden" value="<%= shipping.description %>" name="shippingDescription">
-                    <input type="hidden" value="<%= address %>" name="address">
+                    <input type="hidden" value="<%= addressId %>" name="addressId">
                     <button type="submit">Confirm</button>
                 </form>
             </div>
