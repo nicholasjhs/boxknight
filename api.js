@@ -22,7 +22,7 @@ module.exports.sendShipment = async function sendShipment(shippingOption, addres
             rate_id: rateId,
             destination: address
         });
-        console.log(res.data);
+        return res.data;
     } catch (err) {
         console.log(err);
     }

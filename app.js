@@ -42,8 +42,8 @@ app.post('/send-shipment', async (req, res) => {
   };
   let address = req.body.address;
   try {
-    await api.sendShipment(shipping, address);
-    res.render('confirm', {shipping: null});
+    let order = await api.sendShipment(shipping, address);
+    res.render('thank-you', {order: order});
   } catch (err) {
     console.log(err);
     next(err);
