@@ -32,6 +32,15 @@ npm install npm@latest -g
    npm run start
    ```
 
+<!-- TEST -->
+### Unit Test
+I used mocha & chai for the unit tests
+```sh
+npm run test
+```
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -42,11 +51,6 @@ There are a total of 3 pages
 2. Shipment page. This is the actual application. Simply add an address and follow the instructions.
 
 3. Thank you page that basically confirms the orders and "sends the shipment".
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
 
 
 <!-- DESIGN CHOICES -->
