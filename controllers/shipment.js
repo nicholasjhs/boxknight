@@ -54,7 +54,6 @@ exports.postShippingInfo = async (req, res, next) => {
   addresses[id] = destination;
   try {
     let shippingInfo = await api.getBestRate(destination);
-    // throw new Error('BROKE');
     res.render('shipment', {
       shipping: shippingInfo,
       addressId: id,
@@ -66,7 +65,6 @@ exports.postShippingInfo = async (req, res, next) => {
     });
   } catch (err) {
     console.log('requestBestShipping');
-    // console.log(err);
     if (!err.statusCode) {
       err.statusCode = 500;
     }
