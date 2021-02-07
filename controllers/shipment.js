@@ -5,12 +5,19 @@ const api = require('../api.js');
 
 let addresses = {};
 
-exports.getShippingPage = (req, res) => {
+exports.getIndex = (req, res) => {
   res.render('index', {
+    pageTitle: 'Home'
+  })
+};
+
+exports.getShippingPage = (req, res) => {
+  res.render('shipment', {
     shipping: null,
     addressId: null,
     isSent: false,
     destination: null,
+    pageTitle: 'Shipment',
     hasError: false,
     errorMessages: null
   });
@@ -32,11 +39,12 @@ exports.postShippingInfo = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(`errors: ${JSON.stringify(errors.array())}`);
-    return res.render('index', {
+    return res.render('shipment', {
       shipping: null,
       addressId: null,
       isSent: false,
       destination: destination,
+      pageTitle: 'Shipment',
       hasError: true,
       errorMessages: errors.array()
     });
@@ -47,11 +55,12 @@ exports.postShippingInfo = async (req, res, next) => {
   try {
     let shippingInfo = await api.getBestRate(destination);
     // throw new Error('BROKE');
-    res.render('index', {
+    res.render('shipment', {
       shipping: shippingInfo,
       addressId: id,
       isSent: true,
       destination: destination,
+      pageTitle: 'Shipment',
       hasError: false,
       errorMessages: null
     });
@@ -76,7 +85,10 @@ exports.postShipment = async (req, res, next) => {
     const destination = addresses[addressId];
     try {
       let order = await api.sendShipment(shipping, destination);
-      res.render('thank-you', {order: order});
+      res.render('thank-you', {
+        order: order,
+        pageTitle: 'Thank You',
+      });
     } catch (err) {
       console.log('postShipment');
       console.log(err);

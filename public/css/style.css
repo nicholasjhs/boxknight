@@ -4,9 +4,19 @@
 
 .button {
     background-color: #258FFB;
-    color: white;
+    color: #FFF;
+    border-color: transparent;
+}
+
+.button:hover {
+    color: #FFF;
+    font-weight: 500;
 }
 
 .error-message {
     color: red;
+}
+
+.navbar-item {
+    color: #258FFB
 }

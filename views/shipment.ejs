@@ -1,0 +1,134 @@
+<%- include ('partials/header.ejs', {pageTitle: pageTitle}) %>
+<section class="main section">
+    <div class="container is-max-desktop">
+        <div class="mb-6">
+            <h1 class="title is-4">Shipping Details</h1>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                        <% if (hasError) { %>
+                            <% errorMessages.forEach( error => { %>
+                                <div class="error-message mb-2">
+                                    <p><%= error.msg %> for <%= error.param %> field</p>
+                                </div>
+                            <% }) %>
+                        <% } %>
+                        <form action="/shipment" method="POST">
+                            <div class="columns">
+                                <div class="column field">
+                                    <label class="label" for="address">Address</label>
+                                    <div class="control">
+                                        <input
+                                        class="input"
+                                        type="text"
+                                        name="address"
+                                        value="<% if (isSent || hasError) { %><%= destination.address_line_one %><% } %>" 
+                                        required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column field">
+                                    <label class="label" for="city">City</label>
+                                    <div class="control">
+                                        <input
+                                        class="input"
+                                        type="text"
+                                        name="city"
+                                        value="<% if (isSent || hasError) { %><%= destination.city %><% } %>" 
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="column field">
+                                    <label class="label" for="province">Province</label>
+                                    <div class="control">
+                                        <input
+                                        class="input"
+                                        type="text"
+                                        name="province"
+                                        value="<% if (isSent || hasError) { %><%= destination.province %><% } %>" 
+                                        required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column field">
+                                    <label class="label" for="postalcode">Postal Code</label>
+                                    <div class="control">
+                                        <input
+                                        class="input"
+                                        type="text"
+                                        name="postalcode"
+                                        value="<% if (isSent || hasError) { %><%= destination.postalCode %><% } %>" 
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="column field">
+                                    <label class="label" for="country">Country</label>
+                                    <div class="control">
+                                        <input
+                                        class="input"
+                                        type="text"
+                                        name="country"
+                                        value="<% if (isSent || hasError) { %><%= destination.country %><% } %>" 
+                                        required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button is-fullwidth" type="submit">Find Best Delivery</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <% if (isSent) { %> 
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="content">
+                            <% if(shipping !== null){ %>
+                                <div class="shipment-information">
+                                    <h2 class="title is-4">Best Delivery Found</h2>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <h5 class="title is-5"><%= shipping.description %></h5>
+                                            <p class="subtitle is-5">Estimated Shipping Days: <%= shipping.estimate_days %></p>
+                                        </div>
+                                        <div class="column is-2">
+                                            <p class="title is-5"><%= shipping.price %>$</p>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <form action="/send-shipment" method="POST">
+                                                <input type="hidden" value="<%= shipping.id %>" name="shippingId">
+                                                <input type="hidden" value="<%= shipping.description %>" name="shippingDescription">
+                                                <input type="hidden" value="<%= addressId %>" name="addressId">
+                                                <div class="buttons is-right">
+                                                    <button class="button" type="submit">Confirm Shipment</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } else {%>
+                                <div class="no-shipment-information">
+                                    <h2 class="title is-4">No Shipment Option Is Available For the Given Address.</h2>
+                                    <p class="subtitle is-5">Please try again.</p>
+                                    <div class="buttons is-right">
+                                        <a class="button is-warning" href="/shipment">Try Again</a>
+                                    </div>
+                                </div>
+                            <% } %>
+                            </div>
+                        </div>
+                        </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include ('partials/footer.ejs') %>

@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You</title>
-</head>
-<body>
-    <div class="container">
-        <% if(order !== null){ %>
-            <div class="order-information">
-                <h1>THANK YOU FOR YOUR ORDER !</h1>
-                <p>Order number: #<%= order.order_id %></p>
+<%- include ('partials/header.ejs', {pageTitle: pageTitle}) %>
+<section class="main section is-large">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column">
+                <% if(order !== null){ %>
+                    <div class="order-information">
+                        <h1 class="title is-1">THANK YOU FOR YOUR ORDER !</h1>
+                        <p class="subtitle is-3">Order number: #<%= order.order_id %></p>
+                    </div>
+                    <div class="end">
+                        <p class="subtitle is-3">This completes my submission ! Thank you again.</p>
+                    </div>
+                <% } %>
             </div>
-        <% } %>
+        </div>
     </div>
-    <div>
-        <a href="/">Another One</a>
-    </div>
-</body>
-</html>
+</section>
+<%- include ('partials/footer.ejs') %> 

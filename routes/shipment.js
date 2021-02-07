@@ -5,6 +5,8 @@ const shipmentController = require('../controllers/shipment');
 
 const router = express.Router();
 
+router.get('/', shipmentController.getIndex);
+
 router.get('/shipment', shipmentController.getShippingPage);
 
 router.post(

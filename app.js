@@ -18,13 +18,13 @@ app.use(express.static(__dirname + '/public'));;
 
 app.use(shipmentRoutes);
 
-// app.use((err, req, res) => {
-//   console.log("hello");
-//   const status = err.statusCode || 500;
-//   const message = err.message;
-//   const data = err.data;
-//   res.status(status).json({message: message, data: data});
-// });
+app.use((err, req, res) => {
+  console.log("hello");
+  const status = err.statusCode || 500;
+  const message = err.message;
+  const data = err.data;
+  res.status(status).json({message: message, data: data});
+});
 
 app.listen(port, () => {
   console.log(`I'm listening on port ${port}`);
