@@ -51,11 +51,11 @@ function findBestRate(rates) {
     }
     let bestRate = rates.reduce(
         function(lowest, current) {
-            if(current.price <= lowest.price) {
-                return current.estimate_days < lowest.estimate_days ? current : lowest;
-            } else {
+            if (current.price > lowest.price) {
                 return lowest;
             }
+            
+            return current.estimate_days < lowest.estimate_days ? current : lowest;
     }, rates[0]);
     return bestRate;
 }

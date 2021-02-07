@@ -5,20 +5,18 @@ const api = require('../api.js');
 
 let addresses = {};
 
-exports.getIndex = (req, res) => {
-    res.render('index', {
-      shipping: null,
-      destination: null,
-      hasError: false,
-      errorMessages: null
-    });
-};
-
 exports.getShippingPage = (req, res) => {
-    res.render('confirm', {shipping: null, addressId: null});
+  res.render('index', {
+    shipping: null,
+    addressId: null,
+    isSent: false,
+    destination: null,
+    hasError: false,
+    errorMessages: null
+  });
 };
 
-exports.requestBestShipping = async (req, res, next) => {
+exports.postShippingInfo = async (req, res, next) => {
   const address = req.body.address;
   const city = req.body.city;
   const province = req.body.province;
@@ -36,6 +34,8 @@ exports.requestBestShipping = async (req, res, next) => {
     console.log(`errors: ${JSON.stringify(errors.array())}`);
     return res.render('index', {
       shipping: null,
+      addressId: null,
+      isSent: false,
       destination: destination,
       hasError: true,
       errorMessages: errors.array()
@@ -47,7 +47,14 @@ exports.requestBestShipping = async (req, res, next) => {
   try {
     let shippingInfo = await api.getBestRate(destination);
     // throw new Error('BROKE');
-    res.render('confirm', {shipping: shippingInfo, addressId: id});
+    res.render('index', {
+      shipping: shippingInfo,
+      addressId: id,
+      isSent: true,
+      destination: destination,
+      hasError: false,
+      errorMessages: null
+    });
   } catch (err) {
     console.log('requestBestShipping');
     // console.log(err);
