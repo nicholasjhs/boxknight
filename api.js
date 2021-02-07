@@ -15,6 +15,9 @@ const carriers = [
 ];
 
 module.exports.sendShipment = async function sendShipment(shippingOption, destination) {
+    if (isEmptyOrNull(shippingOption) || isEmptyOrNull(destination)) {
+        return null;
+    }
     let rateId = shippingOption.id;
     let carrierUrl = getCarrierUrl(carriers, shippingOption.description);
     try {
@@ -30,6 +33,9 @@ module.exports.sendShipment = async function sendShipment(shippingOption, destin
 }
 
 module.exports.getBestRate = async function getBestRate(destination) {
+    if (isEmptyOrNull(destination)) {
+        return null;
+    }
     let promises = carriers.map(carrier => axios.get(carrier.url + ratesUrl + destination.postalCode));
     try {
         let results = await Promise.allSettled(promises);
@@ -45,7 +51,7 @@ module.exports.getBestRate = async function getBestRate(destination) {
     }
 }
 
-function findBestRate(rates) {
+module.exports.findBestRate = function findBestRate(rates) {
     if (!rates.length > 0) {
         return null;
     }
@@ -63,4 +69,15 @@ function findBestRate(rates) {
 function getCarrierUrl(carriers, description) {
     const carrier = carriers.find(carrier => description.includes(carrier.name));
     return carrier.url;
+}
+
+function isEmptyOrNull(obj) {
+    if (obj == null) {
+        return true;
+    }
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+    return true;
 }

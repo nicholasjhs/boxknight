@@ -4,7 +4,7 @@
   "description": "BoxKnight Developer Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon app.js"
   },
   "author": "Nicholas Hugh Sam",
@@ -20,6 +20,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "chai": "^4.3.0",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.7"
   }
 }
