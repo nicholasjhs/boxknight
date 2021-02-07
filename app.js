@@ -27,5 +27,5 @@ app.use((err, req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`I'm listening on port ${port}`);
+  console.log(`Please visit http://localhost:${port}/`);
 })

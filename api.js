@@ -51,7 +51,7 @@ module.exports.getBestRate = async function getBestRate(destination) {
     }
 }
 
-module.exports.findBestRate = function findBestRate(rates) {
+function findBestRate(rates) {
     if (!rates.length > 0) {
         return null;
     }
@@ -81,3 +81,5 @@ function isEmptyOrNull(obj) {
     }
     return true;
 }
+
+module.exports.findBestRate = findBestRate;
